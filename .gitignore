@@ -186,3 +186,6 @@ feature_tsv/*
 SparK/artifacts/*
 SparK/wandb/*
 byol_lightly.ckpt
+
+data/
+notes/
