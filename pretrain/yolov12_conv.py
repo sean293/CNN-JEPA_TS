@@ -6,6 +6,23 @@ import numpy as np
 import torch
 import torch.nn as nn
 
+def autopad(k, p=None, d=1):  # kernel, padding, dilation
+    """Pad to 'same' shape — supports int or tuple kernel sizes"""
+    if isinstance(k, int):
+        # scalar kernel
+        if d > 1:
+            k = d * (k - 1) + 1
+        return k // 2 if p is None else p
+    elif isinstance(k, tuple):
+        # 2D kernel like (3,3)
+        if d > 1:
+            k = tuple(d * (x - 1) + 1 for x in k)
+        return tuple(x // 2 for x in k) if p is None else p
+    else:
+        raise TypeError(f"Invalid kernel type: {type(k)}")
+
+
+
 #NOTE From https://github.com/sunsmarterjie/yolov12/blob/main/ultralytics/nn/modules/conv.py
 class Conv(nn.Module):
     """Standard convolution with args(ch_in, ch_out, kernel, stride, padding, groups, dilation, activation)."""
